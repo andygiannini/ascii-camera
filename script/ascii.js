@@ -5,7 +5,8 @@ var ascii = (function() {
 		// Original code by Jacob Seidelin (http://www.nihilogic.dk/labs/jsascii/)
 		// Heavily modified by Andrei Gheorghe (http://github.com/idevelop)
 
-		var characters = (" .,:;i1tfLCG08@").split("");
+		//var characters = (" .,:;i1tfLCG08@").split("");
+		var classes = ("abcdefghijklmno").split("");
 
 		var context = canvas.getContext("2d");
 		var canvasWidth = canvas.width;
@@ -17,11 +18,14 @@ var ascii = (function() {
 		// http://www.dfstudios.co.uk/articles/image-processing-algorithms-part-5/
 		var contrastFactor = (259 * (options.contrast + 255)) / (255 * (259 - options.contrast));
 
+		// Keep track of brightness spans
+		var inSpan = false;
+		var previousClass = '';
+
 		var imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
 		for (var y = 0; y < canvasHeight; y += 2) { // every other row because letters are not square
 			for (var x = 0; x < canvasWidth; x++) {
-				// get each pixel's brightness and output corresponding character
-
+				// get each pixel's brightness and output corresponding brightness class
 				var offset = (y * canvasWidth + x) * 4;
 
 				var color = getColorAtOffset(imageData.data, offset);
@@ -39,13 +43,26 @@ var ascii = (function() {
 				// http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
 				var brightness = (0.299 * contrastedColor.red + 0.587 * contrastedColor.green + 0.114 * contrastedColor.blue) / 255;
 
-				var character = characters[(characters.length - 1) - Math.round(brightness * (characters.length - 1))];
+				var brightnessClass = classes[(classes.length - 1) - Math.round(brightness * (classes.length - 1))];
 
-				asciiCharacters += character;
+                // If our current brightness isn't the same as the last one, make a new span
+                if (previousClass !== brightnessClass) {
+                    // If this isn't the first character, close the previous span
+                    if (previousClass !== '') {
+                        asciiCharacters += '</span>';
+                    }
+                    asciiCharacters += '<span class="' + brightnessClass + '">';
+                }
+
+				asciiCharacters += 'A';
+
+				previousClass = brightnessClass;
 			}
 
 			asciiCharacters += "\n";
 		}
+
+        asciiCharacters += '</span>';
 
 		options.callback(asciiCharacters);
 	}
