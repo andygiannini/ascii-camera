@@ -19,9 +19,9 @@ var ascii = (function() {
 		var contrastFactor = (259 * (options.contrast + 255)) / (255 * (259 - options.contrast));
 
 		// Keep track of brightness spans
-		var inSpan = false;
 		var previousClass = '';
 
+        var position = 0;
 		var imageData = context.getImageData(0, 0, canvasWidth, canvasHeight);
 		for (var y = 0; y < canvasHeight; y += 2) { // every other row because letters are not square
 			for (var x = 0; x < canvasWidth; x++) {
@@ -54,7 +54,7 @@ var ascii = (function() {
                     asciiCharacters += '<span class="' + brightnessClass + '">';
                 }
 
-				asciiCharacters += 'A';
+				asciiCharacters += speechText.get(position++);
 
 				previousClass = brightnessClass;
 			}
