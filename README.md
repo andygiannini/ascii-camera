@@ -1,30 +1,25 @@
-ASCII Camera
+You Are What You Say
 ============
 
-ASCII Camera uses the HTML5 getUserMedia API to transform a video stream from your webcam into a real-time ASCII representation.
+You Are What You Say uses your speech to create an ASCII art video of you.
 
-**[See it in action](http://idevelop.github.com/ascii-camera)**.
+Once the video begins to render, start talking to it. Try it out [here](https://asciicam.surge.sh)!
 
-<img src="http://idevelop.github.com/ascii-camera/images/screenshot.png" />
+Idea by [Collin](https://github.com/collinjoyce).
+
+## Permissions
+
+Requires access to your browser's microphone and camera.
 
 ## Supported browsers
 
-* Chrome &ge; 21
-* Firefox &ge; 17 (requires `media.navigator.enabled = true` in `about:config`)
-* Opera &ge; 12
+Camera input (getUserMedia) and speech recognition (webkitSpeechRecognition) require a recent version of Chrome.
 
-## Libraries used
+## Credits
 
+Based on the [ASCII Camera project by Andrei Gheorghe](http://idevelop.github.com/ascii-camera).
 * Camera input is done using the [camera.js library](https://github.com/idevelop/camera.js).
 * ASCII transformation is adapted from [jsascii library](http://www.nihilogic.dk/labs/jsascii/) by [Jacob Seidelin](http://blog.nihilogic.dk/).
-
-## Author
-
-**Andrei Gheorghe**
-
-* [About me](http://idevelop.github.com)
-* LinkedIn: [linkedin.com/in/idevelop](http://www.linkedin.com/in/idevelop)
-* Twitter: [@idevelop](http://twitter.com/idevelop)
 
 ## License
 
